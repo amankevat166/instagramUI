@@ -1,19 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:instagram/screens/heart.dart';
-import 'package:instagram/screens/home_screen.dart';
-import 'package:instagram/screens/login.dart';
-import 'package:instagram/screens/message.dart';
-import 'package:instagram/screens/profile.dart';
-import 'package:instagram/screens/register.dart';
-import 'package:instagram/screens/search.dart';
+import 'package:instagram/getx_controller/firebase_auth_controllers/firebase_methods.dart';
 import 'package:instagram/screens/splash_screen.dart';
 import 'package:instagram/themes/theme.dart';
 import 'package:instagram/utils/routes.dart';
-import 'package:instagram/widgets/bottom_nav_bar.dart';
-
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -22,6 +15,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // Initialize GetX controller
+  Get.put(FirebaseMethods());
   runApp(const MyApp());
 }
 
@@ -36,7 +31,7 @@ class MyApp extends StatelessWidget {
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
 
-      home: SplashScreen(),
+      home: const SplashScreen(),
       getPages: MyRoutes.routes,
 
       // routes: {

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:instagram/getx_controller/meme_controller.dart';
 import 'package:instagram/screens/login.dart';
 import 'package:instagram/utils/list_of_things.dart';
 import 'package:instagram/utils/routes.dart';
@@ -15,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final MemeController controller = Get.put(MemeController());
   List<String> subTitle = [
     "Tokyo, Japan",
     "Paris, France",
@@ -33,18 +37,24 @@ class _HomeScreenState extends State<HomeScreen> {
     "Dubai, United Arab Emirates",
     "Bangkok, Thailand",
   ];
+  var meme;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.fetchMemes();
+    meme = controller.memes;
+  }
+  @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
         appBar: AppBar(
-          leading: Icon(CupertinoIcons.camera,color: context.theme.primaryColorDark,),
+          leading: Icon(CupertinoIcons.camera,color: VxContextExtensions(context).theme.primaryColorDark,),
           title: "Instagram"
               .text
               .textStyle(GoogleFonts.satisfy())
-              .color(context.theme.primaryColorDark)
+              .color(VxContextExtensions(context).theme.primaryColorDark)
               .bold
               .xl3
               .make(),
@@ -52,14 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             IconButton(
                 onPressed: () {},
-                icon: Icon(CupertinoIcons.heart,size: 30,color: context.theme.primaryColorDark,)),
+                icon: Icon(CupertinoIcons.heart,size: 30,color: VxContextExtensions(context).theme.primaryColorDark,)),
             IconButton(
                 onPressed: () {
                   Navigator.pushNamed(context, MyRoutes.message);
                 },
                 icon: Image.asset(
                   "assets/images/messanger.png",
-                  color: context.theme.primaryColorDark,
+                  color: VxContextExtensions(context).theme.primaryColorDark,
                 )),
           ],
         ),
@@ -74,10 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   imageData: ListOfThings.personImages,
                   textData: ListOfThings.personName),
 
+
               UiHelper.listviewHome(
                   images: ListOfThings.personImages,
                   name: ListOfThings.personName,
-                  subTitle: subTitle),
+                  subTitle: subTitle,
+              meme: meme,
+              controller: controller),
             ],
           ),
         ));

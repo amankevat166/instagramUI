@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram/screens/heart.dart';
 import 'package:instagram/screens/home_screen.dart';
 import 'package:instagram/screens/post.dart';
-import 'package:instagram/screens/profile.dart';
+import 'package:instagram/screens/profile/profile.dart';
 import 'package:instagram/screens/search.dart';
 
 class BottomNavBar extends StatefulWidget {

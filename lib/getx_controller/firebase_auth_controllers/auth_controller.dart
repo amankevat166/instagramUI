@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:instagram/getx_controller/firebase_auth_controllers/firebase_methods.dart';
 import 'package:instagram/utils/routes.dart';
 
 class AuthController extends GetxController with WidgetsBindingObserver{
@@ -33,7 +34,7 @@ class AuthController extends GetxController with WidgetsBindingObserver{
   }
 
 
-  Future<void> registerUser(String email, String password, VoidCallback toHome) async {
+  Future<void> registerUser(String name,String email, String password, VoidCallback toHome) async {
     try {
       isLoading.value = true;
 
@@ -41,7 +42,7 @@ class AuthController extends GetxController with WidgetsBindingObserver{
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
       // Send email verification
-      await sendEmailVerification();
+      await sendEmailVerification(name,email);
 
       Get.snackbar(
         "Success",
@@ -65,11 +66,12 @@ class AuthController extends GetxController with WidgetsBindingObserver{
 
 
   // Send email verification
-  Future<void> sendEmailVerification() async {
+  Future<void> sendEmailVerification(String name,String email) async {
     try {
       final user = _auth.currentUser;
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
+        FirebaseMethods.addRegisterData(name: name, email: email);
       }
     } catch (e) {
       Get.snackbar("Error", e.toString());
@@ -86,6 +88,7 @@ class AuthController extends GetxController with WidgetsBindingObserver{
         final isVerified = user.emailVerified; // Get the updated email verification status
 
         if (isVerified) {
+
           Get.snackbar(
             "Verified",
             "Email verified! Redirecting to home page.",

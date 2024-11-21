@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:instagram/firebase/firebase_auth/auth_controller.dart';
-import 'package:instagram/firebase/firebase_auth/validation_controller.dart';
+import 'package:instagram/getx_controller/firebase_auth_controllers/auth_controller.dart';
+import 'package:instagram/getx_controller/firebase_auth_controllers/validation_controller.dart';
 import 'package:instagram/utils/routes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -22,11 +22,11 @@ class _RegisterState extends State<Register> {
   final authController = Get.put(AuthController());
   final validationController = Get.put(ValidationController());
 
-  Future<void> registerSuccess(String email,String pass) async {
+  Future<void> registerSuccess(String name,String email,String pass) async {
 
     if (validationController.validateEmail(email) == null &&
         validationController.validatePassword(pass) == null) {
-      await authController.registerUser(email, pass,()=>Get.offAllNamed(MyRoutes.home));
+      await authController.registerUser(name,email, pass,()=>Get.offAllNamed(MyRoutes.home));
     }
   }
 
@@ -119,11 +119,12 @@ class _RegisterState extends State<Register> {
                       callback: () {
                         final email = _emailController.text.trim();
                         final pass = _passController.text.trim();
+                        final name = _userNameController.text.trim();
                         if(email.isEmpty || pass.isEmpty){
                           UiHelper.alertDialog(context, "Register", "Email and password can't be empty");
                         }
                         else {
-                          registerSuccess(email,pass);
+                          registerSuccess(name,email,pass);
                         }
                       },
                       text: "Register"),

@@ -4,8 +4,10 @@ import 'package:instagram/screens/heart.dart';
 import 'package:instagram/screens/home_screen.dart';
 import 'package:instagram/screens/login.dart';
 import 'package:instagram/screens/message.dart';
-import 'package:instagram/screens/profile.dart';
+import 'package:instagram/screens/profile/edit_profile.dart';
+import 'package:instagram/screens/profile/profile.dart';
 import 'package:instagram/screens/register.dart';
+import 'package:instagram/screens/setting.dart';
 import 'package:instagram/screens/splash_screen.dart';
 import 'package:instagram/widgets/bottom_nav_bar.dart';
 
@@ -20,6 +22,8 @@ class MyRoutes{
   static const heart = "/heart";
   static const profile = "/profile";
   static const forgotPass = "/forgotPass";
+  static const setting = "/setting";
+  static const editProfile = "/editProfile";
 
   static final routes = [
     GetPage(name:MyRoutes.splash , page: () => SplashScreen()),
@@ -31,5 +35,7 @@ class MyRoutes{
     GetPage(name:MyRoutes.heart , page: () => Heart()),
     GetPage(name:MyRoutes.profile , page: () => Profile()),
     GetPage(name:MyRoutes.forgotPass , page: () => ForgotPassword()),
+    GetPage(name:MyRoutes.setting , page: () => Setting()),
+    GetPage(name:MyRoutes.editProfile , page: () => EditProfile()),
   ];
 }

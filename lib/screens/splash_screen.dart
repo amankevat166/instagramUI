@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _hasCheckedAuth = true;
 
     // Simulate splash screen delay (optional)
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
     User? currentUser = _auth.currentUser;
 
@@ -42,16 +42,11 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     } else {
       // User is not logged in
-      Get.offAllNamed('/login'); // Replace '/login' with your login page route
+      Get.offAllNamed(MyRoutes.login); // Replace '/login' with your login page route
     }
   }
 
 
-  void splash(){
-      Timer(Duration(seconds: 1), (){
-        Navigator.pushReplacementNamed(context, MyRoutes.register); // Adjust as needed
-      });
-  }
 
   @override
   Widget build(BuildContext context) {
